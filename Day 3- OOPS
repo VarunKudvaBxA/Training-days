@@ -1,0 +1,35 @@
+1) THIS KEYWORD:
+Sometimes a constructor or method has a parameter with the same name as a class variable. When this happens, the parameter temporarily hides the class variable inside that method or constructor.
+To refer to the class variable and not the parameter, we use the this keyword.
+
+public class Main {
+  int x;  // Class variable x
+  public Main(int x) {
+    this.x = x; // refers to the class variable x
+  }
+
+also use this() to call another constructor in the same class
+public Main(String modelName) {
+    // Call the two-parameter constructor to reuse code and set a default year    
+    this(2020, modelName);
+  }
+
+  // Constructor with two parameters
+  public Main(int modelYear, String modelName) {
+    // Use 'this' to assign values to the class variables
+    this.modelYear = modelYear;
+    this.modelName = modelName;
+  }
+
+The call to this() must be the first statement inside the constructor
+
+When to use this?
+When a constructor or method has a parameter with the same name as a class variable, use this to update the class variable correctly.
+To call another constructor in the same class and reuse code.
+
+
+2) The meaning of Encapsulation, is to make sure that "sensitive" data is hidden from users. To achieve this, you must:
+
+declare class variables/attributes as private
+provide public get and set methods to access and update the value of a private variable
+
