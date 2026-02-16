@@ -1,0 +1,22 @@
+ Allows developers to manage runtime errors gracefully, ensuring the normal flow of a program continues instead of crashing abruptly.
+
+Exception: An object representing an error or unexpected event, usually a subclass of java.lang.Exception.
+Checked Exceptions: Must be either caught or declared in the method signature (e.g., IOException).
+Unchecked Exceptions: Runtime exceptions that don’t require explicit handling (e.g., NullPointerException, ArithmeticException).
+Error: Serious issues (like OutOfMemoryError) that applications typically should not try to handle.
+
+
+try	Defines a block of code to monitor for exceptions.
+catch	Handles the exception if one occurs in the try block.
+finally	Executes code regardless of whether an exception occurred (e.g., cleanup).
+throw	Used to explicitly throw an exception.
+throws	Declares exceptions a method might throw.
+
+public class Example { public static void main(String[] args) { 
+try { int result = 10 / 0; System.out.println("Result: " + result); }
+catch (ArithmeticException e) { System.out.println("Error: Division by zero!"); } 
+finally { System.out.println("Execution completed."); } } }
+
+Errors and Exceptions are subclasses of the Throwable class in Java
+
+
