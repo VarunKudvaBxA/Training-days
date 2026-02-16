@@ -1,4 +1,84 @@
- Allows developers to manage runtime errors gracefully, ensuring the normal flow of a program continues instead of crashing abruptly.
+Compile time errors- missing semicolon, undeclared variables, mismatched types
+runtime error- div by 0, array index out of bounds; logical error
+
+Debugging: Reading error messages; Tracing variable values step by step; Testing small pieces of code independently
+Exception handling lets you catch and handle errors during runtime 
+
+public class Main { public static void main(String[] args) {
+    try {int[] myNumbers = {1, 2, 3}; System.out.println(myNumbers[10]);} 
+    catch (Exception e) { System.out.println("Something went wrong.");}
+    finally {System.out.println("The 'try catch' is finished.");}}}
+
+The throw statement allows you to create a custom error.
+ArithmeticException, FileNotFoundException, ArrayIndexOutOfBoundsException, SecurityException
+
+public class Main {
+  static void checkAge(int age) {
+    if (age < 18) { throw new ArithmeticException("Access denied - You must be at least 18 years old.");}
+    else { System.out.println("Access granted - You are old enough!");}}
+  public static void main(String[] args) {checkAge(15);}}
+
+public class Main {
+  public static void main(String[] args) {
+    try {
+      int[] numbers = {1, 2, 3};
+      System.out.println(numbers[10]);  // ArrayIndexOutOfBoundsException
+      int result = 10 / 0;              // ArithmeticException
+    } 
+    catch (ArrayIndexOutOfBoundsException e) {
+      System.out.println("Array index does not exist.");
+    } 
+    catch (ArithmeticException e) {
+      System.out.println("Cannot divide by zero.");
+    } 
+    catch (Exception e) {
+      System.out.println("Something else went wrong.");
+    }
+  }
+}
+
+Only the first exception (ArrayIndexOutOfBoundsException) is thrown, so only the first matching catch runs.
+You should always put more specific exceptions first, and general ones later
+
+catch multiple exceptions in one catch block using the | symbol
+try {
+  int result = 10 / 0;
+  int[] numbers = {1, 2, 3};
+  System.out.println(numbers[10]);
+} 
+catch (ArithmeticException | ArrayIndexOutOfBoundsException e) {
+  System.out.println("Math error or array error occurred.");
+}
+
+If you forget to close a resource, it may keep using memory or even prevent you from opening the file again until the program ends.
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Main {
+  public static void main(String[] args) {
+    try {
+      FileOutputStream output = new FileOutputStream("filename.txt");
+      output.write("Hello".getBytes());
+      output.close();  // must close manually
+      System.out.println("Successfully wrote to the file.");
+    } catch (IOException e) {
+      System.out.println("Error writing file.");}}}
+
+Java 7, you can use try-with-resources. It is a special form of try that works with resources (like files and streams). The resource is declared inside parentheses try(...), and Java will close it automatically when the block finishes - even if an error occurs.
+import java.io.FileOutputStream;
+import java.io.IOException;
+public class Main {
+  public static void main(String[] args) {
+    // resource is opened inside try()
+    try (FileOutputStream output = new FileOutputStream("filename.txt")) {
+      output.write("Hello".getBytes());
+      // no need to call close() here
+      System.out.println("Successfully wrote to the file.");
+    } catch (IOException e) {
+      System.out.println("Error writing file.");}}}
+
+
+Allows developers to manage runtime errors gracefully, ensuring the normal flow of a program continues instead of crashing abruptly.
 
 Exception: An object representing an error or unexpected event, usually a subclass of java.lang.Exception.
 Checked Exceptions: Must be either caught or declared in the method signature (e.g., IOException).
@@ -18,5 +98,3 @@ catch (ArithmeticException e) { System.out.println("Error: Division by zero!"); 
 finally { System.out.println("Execution completed."); } } }
 
 Errors and Exceptions are subclasses of the Throwable class in Java
-
-
