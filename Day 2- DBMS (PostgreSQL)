@@ -11,3 +11,83 @@ TRUNCATE TABLE cars;
 DROP TABLE cars;
 
 SELECT * FROM cars WHERE model ILIKE 'm%';
+SELECT COUNT(DISTINCT country) FROM customers;
+
+The OFFSET clause is used to specify where to start selecting the records to return.
+SELECT * FROM customers LIMIT 20 OFFSET 40;
+
+::NUMERIC operator to round the average price to a number with 2 decimals
+SELECT AVG(price)::NUMERIC(10,2)
+FROM products;
+
+SELECT * FROM customers
+WHERE customer_id IN (SELECT customer_id FROM orders);
+
+Concatenate two fields and call them product:
+SELECT product_name || ' ' || unit AS product
+FROM products;
+
+The FULL JOIN keyword selects ALL records from both tables, even if there is not a match
+SELECT testproduct_id, product_name, category_name
+FROM testproducts
+FULL JOIN categories ON testproducts.category_id = categories.category_id;
+
+The CROSS JOIN keyword returns the Cartesian product of two or more tables (combines every row from the first table with every row from the second table).
+if the first table has 100 rows, and the second table has 500 rows, the result set will be 100x500 rows.
+
+The queries in the union must follow these rules:
+They must have the same number of columns
+The columns must have the same data types
+The columns must be in the same order
+
+SELECT order_id, SUM(order_details.quantity * products.price)
+FROM order_details
+LEFT JOIN products on products.product_id = order_details.product_id
+GROUP BY order_id
+HAVING SUM(order_details.quantity * products.price) > 400.00;
+
+SELECT customers.customer_name
+FROM customers
+WHERE NOT EXISTS ( SELECT order_id FROM orders WHERE customer_id = customers.customer_id);
+
+ANY means that the condition will be true if the operation is true for any of the values in the range.
+SELECT product_name FROM products WHERE product_id = ANY ( SELECT product_id FROM order_details WHERE quantity > 120);
+
+SELECT product_name
+FROM products
+WHERE product_id = ALL (
+  SELECT product_id
+  FROM order_details
+  WHERE quantity > 10
+);
+
+SELECT product_name,
+CASE
+  WHEN price < 10 THEN 'Low price product'
+  WHEN price > 50 THEN 'High price product'
+ELSE
+  'Normal product'
+END AS "price category"
+FROM products;
+
+Window functions perform calculations across a set of rows related to the current row. they don’t collapse rows — they keep all rows visible while adding extra computed columns.
+LAG() → Fetches the value from the previous row.
+LEAD() → Fetches the value from the next row.
+
+LAG(column_name, offset, default_value) OVER (PARTITION BY col ORDER BY col)
+LEAD(column_name, offset, default_value) OVER (PARTITION BY col ORDER BY col)
+SELECT month, revenue, LAG(revenue, 1) OVER (ORDER BY month) AS prev_month_revenue, LEAD(revenue, 1) OVER (ORDER BY month) AS next_month_revenue FROM sales;
+
+WITH clause lets you build a temporary result set (like a named subquery) that you can reuse
+WITH sales_with_diff AS (
+    SELECT 
+        month,
+        revenue,
+        LAG(revenue, 1) OVER (ORDER BY month) AS prev_revenue
+    FROM sales
+)
+SELECT 
+    month,
+    revenue,
+    revenue - prev_revenue AS revenue_change
+FROM sales_with_diff;
