@@ -1,4 +1,10 @@
 Java Collection Framework (JCF) is a set of classes and interfaces that provide ready-made data structures to store and manipulate groups of objects efficiently
-improves productivity by making code more reusable, maintainable and faster to develop.
+improves productivity by 
+making code more reusable, maintainable and faster to develop.
 
 ArrayList is not thread-safe. To make it thread-safe, you must wrap it manually using Collections.synchronizedList().
+
+al.add(1, "For");  al.set(0, "GFG");
+
+
+
