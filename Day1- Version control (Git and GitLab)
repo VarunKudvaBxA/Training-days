@@ -30,4 +30,16 @@ git log - See commit history
 For a shorter view, use git log --oneline
 To see which files changed in each commit, use git log --stat
 
+A tag in Git is like a label or bookmark for a specific commit. keep track of versions
+Tags: Releases, Milestones, Deployment, Hotfixes
+An annotated tag stores your name, the date, and a message.git tag -a v1.0 -m "Version 1.0 release"
+git tag
+git show v1.0
+
+If you want others to see your tags, you need to push them to your remote repository.
+git push origin v1.0
+git push --tags
+git tag -d v1.0
+
+
 
