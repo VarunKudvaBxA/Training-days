@@ -1,0 +1,79 @@
+Introduced in Java 8 as part of the Stream API.
+A Stream is not a data structure; it’s a sequence of elements from a source (like a collection, array, or I/O channel).
+Streams provide a declarative, functional-style approach to processing data, replacing verbose loops with concise pipelines.
+
+Streams don’t store elements; they just process them.
+Functional operations: Support operations like map, filter, reduce, collect.
+Lazy evaluation: Operations are executed only when a terminal operation (like collect) is invoked.
+Parallelism: Streams can run sequentially or in parallel (parallelStream()), making them powerful for large datasets.
+Immutable: Streams don’t modify the underlying data source.
+
+Intermediate: map(), filter(), distinct(), sorted()-> Transform or filter data; return another Stream
+Terminal: collect(), forEach(), reduce(), count()-> Produce a result or side-effect; end the pipeline
+
+List<String> list = Arrays.asList("a", "b", "c"); Stream<String> stream = list.stream();
+int[] numbers = {1, 2, 3}; IntStream intStream = Arrays.stream(numbers);
+Stream<String> stream = Stream.of("x", "y", "z");
+Stream<Double> randoms = Stream.generate(Math::random);
+
+Filtering: Extract elements based on conditions.
+Mapping: Transform elements (e.g., convert strings to uppercase).
+Reducing: Aggregate values (e.g., sum of numbers).
+Collecting: Gather results into lists, sets, or maps.
+
+Streams can’t be reused once a terminal operation is called. Stream pipelines can be harder to debug than loops.  Small datasets may not benefit from streams compared to traditional iteration.
+Sorting: Order elements with custom comparators.
+
+import java.util.*;
+import java.util.stream.*;
+public class StreamFilterExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+        List<String> filtered = names.stream().filter(name -> name.startsWith("C")).collect(Collectors.toList());
+        System.out.println(filtered); // Output: [Charlie]
+}}
+
+import java.util.*;
+import java.util.stream.*;
+public class StreamMapExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("alice", "bob", "charlie");
+        List<String> upperNames = names.stream().map(String::toUpperCase).collect(Collectors.toList());
+        System.out.println(upperNames); // Output: [ALICE, BOB, CHARLIE]
+}}
+
+import java.util.*;
+import java.util.stream.*;
+public class StreamReduceExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        int sum = numbers.stream()
+                         .reduce(0, (a, b) -> a + b);
+        System.out.println("Sum: " + sum); // Output: Sum: 15
+}}
+
+import java.util.*;
+import java.util.stream.*;
+public class StreamSortExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Charlie", "Alice", "Bob");
+        List<String> sorted = names.stream().sorted().collect(Collectors.toList());
+        System.out.println(sorted); // Output: [Alice, Bob, Charlie]
+    }}
+
+import java.util.*;
+import java.util.stream.*;
+public class ParallelStreamExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+        numbers.parallelStream().forEach(num -> System.out.println(Thread.currentThread().getName() + " - " + num));}}
+
+import java.util.*;
+import java.util.stream.*;
+public class StreamToMapExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        Map<String, Integer> nameLengthMap = names.stream().collect(Collectors.toMap(name -> name, name -> name.length()));
+        System.out.println(nameLengthMap); // Output: {Alice=5, Bob=3, Charlie=7}
+}}
+
