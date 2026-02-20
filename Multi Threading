@@ -1,0 +1,37 @@
+Thread.currentThread().getName()
+code segment-> compiled bytecode(machine code); read only
+data segment-> global and static variables, read and modify; synchronization required
+heap-> objects at runtime (using new) (same)
+stack-> own, method calls and local variables
+register-> JIT: Bytecode to native machine code; own; context switching
+program counter-> points to current exec instruction
+
+Multi threading: multiple tasks at the same time
+
+public class MT implements Runnable{
+@Override
+public void run(){
+S.o.pln(Thread.currentThread().getName());
+}
+psvm
+MT obj=new MT(); Thread th=new Thread(obj); th.start();
+
+public class MT extends Thread{
+@Overrride
+public void run(){}
+psvm MT mt=new MT(); mt.start(); 
+
+
+NEW-> thread created, obj in memory.  Runnable-> waiting for cpu time.  Running  Terminated
+Blocked-> I/O, locks acquired. Waiting-> wait(), notify(), notifyAll()   }both releases monitor locks
+Timed Waiting-> sleep() join() }don't release monitor locks  (Monitor locks-> 1 thread inside particular section of code
+
+Stop, suspend-> No lock released.  resume   DEPRECATED
+JOIN-> invoked on thread obj, curr thread will be blocked and waits for specific thread to finish
+
+when a new thread is created, it will inherit it's parent thread's priority
+setPriority(int priority)
+Daemon thread-> runs async th1.setDaemon(true); gc, auto save, logging
+
+Lock Free mechanism
+
