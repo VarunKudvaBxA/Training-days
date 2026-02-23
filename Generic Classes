@@ -1,0 +1,24 @@
+Avoids type casting
+public class Print<T>{ T val; public T getPrint(){return val;} public void setPrint(T val){this.val=val;}}
+Print<Integer> o=new Print<Integer>(); o.setPrint(1); Integer pv=o.getPrintVal();
+public class Color extends Print<String>{}    pub class Main{ psvm{ Color o=new Color(); o.setPrintValue("2"); 
+pub class Color<T> extends Print<T>{}   Color<String>o=new Color<>();
+pub class Pair<K,V> Pair<String, Integer> o=new Pair<>(); o.put("hello",123);
+pub class Gen{ public <k,v> void print(Pair<k,v>p1, Pair<k,v> p2){ if(p1.getKey().equals(p2.getKey())
+pub <T> void setV(T obj) P obj=new P(); o.setValue( new Bus());
+
+Raw Type Object-> i/f or generic class WO any type argument  psvm{ P<String> param=new Print<>(); internally passes object as parameterized type
+P raw=new P(); raw.setPrintValue(1); raw.setPrintValue("hi"); 
+
+Bounded Generics: UB: <T extends Number>  T can be of any type Number or it's sub class. (restricts obj we can pass)
+Multi Bound: <T extends super class & i/f1 & i/fN >    1st should be concrete class then interfaces
+pub class A extends ParentClass implements i/f1, i/f2{}    =       public class Print<T extends Parclass &  I1 & I2>{}       A o=new A(); Print<A> o=new Print<>();
+
+Wildcards: UB: <? extends UBClassName>      LB: <? Super LBClassName>     Unbounded: <?> only you can read, 2 diff type of list
+public void setPrintval(List<? extends Vehicle> vehiclelist){}
+
+Wildcard method: public void computelist(List<? extends Number> s, L<? extends Number> d){}  less restrictive. we can use super() as well
+Generic method: public <T extends Number> void computeList(List<T>s, List<T>d){}
+Unbounded wildcard-> my method works on object class methods
+
+
