@@ -1,0 +1,27 @@
+Spring-> lightweight, opensrc fmwk enterprise level java applications
+simplifies development by providing support for dependency injection (DI), aspect-oriented programming (AOP), 
+transaction management and integration with various frameworks.
+
+Key features of spring:
+1) POJO based development 2) modular design- only use the part we need without unnecessary overhead
+3) Framework Integration 4) Easy Testing 5) Web MVC Framework 6) Centralized Exception Handling 7) Lightweight Containers
+
+Basics of Spring: 
+- Reduces boilerplate code using Dependency Injection and AOP for faster, cleaner development.
+- Loose Coupling - Modular: Allows using only required modules - Integration Support and scalability
+
+Key features of Spring fmwk: 
+1) Dependency injection (auto pvd needed dependencies to a class) 2) AOP- separate cross cutting concerns from business logic
+3) Transaction management 4) Spring MVC 5) Spring Security 6) Spring Data 7) Spring Batch 8) integration with other frameworks 
+
+DI: It allows a class to receive its dependencies from an external source rather than creating them within the class. 
+This reduces the dependency between classes and makes the system more maintainable.
+
+IOC: control of object creation and dependency management is transferred from the application code to an external framework orcontainer.
+
+Spring Annotations are metadata used by the Spring Framework to define configuration, dependencies and behavior directly in Java code.
+Spring to automatically detect, create and manage beans at runtime using component scanning and reflection.
+
+CORE SPRING: Focuses on DI and IOC
+
+
