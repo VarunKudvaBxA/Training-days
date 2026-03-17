@@ -33,5 +33,29 @@ when a new thread is created, it will inherit it's parent thread's priority
 setPriority(int priority)
 Daemon thread-> runs async th1.setDaemon(true); gc, auto save, logging
 
-Lock Free mechanism
+Thread pool: reuse of thres, mgmt of thread life cycle, context switching avoided->more performance
+java.util.concurrent
+public ThreadPoolExecutor( int corepoolsize, int maxpoolsize, long keepalivetime, timeunit unit, BlockingQueue<Runnable> workQueue, ThreadFactory tf, RejectedExecutionHandler hdlr);
+Blocking Queue-> tasks, bounded Queue (fixed size) , unbounded Queue.
+Thread Factory gives thread name, thread priority, set thread Daemon flag
 
+Future-> i/f rept result of async task. Checks if computation is complete, get the result and manage exceptions
+Future<?>futobj=poolExec.submit(()->{System.out.println("This is the task");}); S.o.p(futobj.isDone());
+.cancel()  .isCancelled()  .get() 
+
+callable-> tasks which needs to be executed. difference between callable and runnable is callable can return the value.
+pub i/f Callable<V> { V call() throws Exception;}
+
+Completable Future: help in async programming, pub static<T> CompletableFuture<T> supplyAsync(Supplier <T> supplier);
+CompletableFuture <String> asynctask1=CompleteableFuture.supplyAsync(()->{return "Task Completed";},poolexec);S.O.P(asynctask1.get());
+thenApply-> synchronous execution. uses the same thread of previously completed Async task.  thenApplyAsync
+
+ExecutorService es=Executors.newFixedThreadPool(threads); es.submit(()->"this is async task"); to use when we know exactly how many async task is needed; limited concurrency
+newCachedThreadPool()-> create new thread when needed. it is dynamic
+
+Shutdown-> not accept new task submission.  AwaitTermination after shutdown blocks calling threads and waits for execsvceto shutdown. shutdownNow
+ScheduledThreadPoolExecutor->schedule tasks
+
+ThreadLocal class-> 1 object. ThreadLocal variable
+Virtual Thread-> higher throuhgput, no latency. Thread th1=Thread.ofVirtual().start(Runnable Task);
+ExSvce es=Executors.newVirtualThreadPerTaskExecutor(); es.submit(RunnableTask);
